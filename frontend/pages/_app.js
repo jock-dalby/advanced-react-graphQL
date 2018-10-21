@@ -1,7 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app';
 
-import Page from '../components/page';
+import Page from '../components/Page';
 
 // Have to use namespace _app.js and component name MyApp
 // to override Next.js default App wrapper component
