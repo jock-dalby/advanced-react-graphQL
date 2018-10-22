@@ -1,15 +1,25 @@
 import Link from 'next/link';
+import NavStyles from './styles/NavStyles';
 
 const Nav = () => (
-  <div>
+  <NavStyles>
     {/* Transform to link which routes without refreshing the page */}
+    <Link href="/items">
+      <a>Items</a>
+    </Link>
     <Link href="/sell">
       <a>Sell</a>
     </Link>
-    <Link href="/">
-      <a>Home</a>
+    <Link href="/signup">
+      <a>Signup</a>
     </Link>
-  </div>
+    <Link href="/orders">
+      <a>Orders</a>
+    </Link>
+    <Link href="/me">
+      <a>Accounts</a>
+    </Link>
+  </NavStyles>
 )
 
 export default Nav;
