@@ -1,3 +1,6 @@
+# becuase we renamed the variables.env.sample file as variables.env
+# when we want to deploy, need to run `prisma deploy --env-file variables.env`
+
 endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.prisma
 # secret: ${env:PRISMA_SECRET}
