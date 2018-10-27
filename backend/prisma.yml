@@ -3,7 +3,7 @@
 # is in package.json as 'npm run deploy'
 
 #endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://us1.prisma.sh/jock-dalby/advanced-react-sick-fits/dev
+endpoint: "https://us1.prisma.sh/jock-dalby/advanced-react-sick-fits/dev"
 datamodel: datamodel.graphql
 # secret: ${env:PRISMA_SECRET}
 hooks:

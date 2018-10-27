@@ -1,8 +1,13 @@
-"""Have to give server something it can resolve to when created, so using hi as placeholders"""
+type Dog {
+  name: String!
+}
+
 type Mutation {
-  hi: String
+  createDog(name: String!): Dog
 }
 
 type Query {
-  hi: String
+  # Means an array MUST be returned and all entries must be of type Dog i.e. no null etc.
+  # dogs: [Dog!]!
+  dogs: [Dog]!
 }
