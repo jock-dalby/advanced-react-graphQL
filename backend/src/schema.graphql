@@ -1,13 +1,19 @@
-type Dog {
-  name: String!
-}
+# schema.graphql is public facing api we will interface with from UI, prisma.graphql is our api with the db
+# ------------------------------------------------
+# imports is not a standard in GraphQl but Prisma uses something called GraphQl imports, which is written as below (incl #).
+# This will import all of the types and inputs from the designated file i.e. Item
+# import * from './generated/prisma.graphql'
 
 type Mutation {
-  createDog(name: String!): Dog
+  createItem(
+    title: String,
+    description: String,
+    price: Int,
+    image: String,
+    largeImage: String
+    ): Item!
 }
 
 type Query {
-  # Means an array MUST be returned and all entries must be of type Dog i.e. no null etc.
-  # dogs: [Dog!]!
-  dogs: [Dog]!
+  items: [Item]!
 }

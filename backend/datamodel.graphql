@@ -5,5 +5,14 @@ type User {
 }
 
 type Item {
+  id: ID! @unique
+  title: String!
+  description: String!
   image: String
+  largeImage: String
+  price: Int!
+  # DateTime is a type exposed by Prisma and not a standard type in GraphQL
+  # createAt: DateTime!
+  # updatedAt: DateTime!
+  # user: User!
 }
