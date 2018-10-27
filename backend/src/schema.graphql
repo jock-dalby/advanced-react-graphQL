@@ -1,0 +1,8 @@
+"""Have to give server something it can resolve to when created, so using hi as placeholders"""
+type Mutation {
+  hi: String
+}
+
+type Query {
+  hi: String
+}
