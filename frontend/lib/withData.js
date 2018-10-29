@@ -12,7 +12,7 @@
 import ApolloClient from 'apollo-boost';
 /**
   next-with-apollo gives us a hoc that will expose the apollo client (client-side db) via a prop.
-  React-apollo comes with some tools for doing this but because we are using next.js and want
+  react-apollo comes with some tools for doing this but because we are using next.js and want
   server-side rendering to work we have to use next-with-apollo and do a little extra work.
 */
 import withApollo from 'next-with-apollo';
