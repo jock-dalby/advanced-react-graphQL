@@ -5,7 +5,7 @@ const Nav = () => (
   <NavStyles>
     {/* Transform to link which routes without refreshing the page */}
     <Link href="/items">
-      <a>Items</a>
+      <a>Shop</a>
     </Link>
     <Link href="/sell">
       <a>Sell</a>
