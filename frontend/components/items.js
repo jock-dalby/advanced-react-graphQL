@@ -35,7 +35,7 @@ class items extends Component {
       <Center>
         <Query query={ALL_ITEMS_QUERY}>
           {/* { payload => { */}
-          {/* Desturctured to */}
+          {/* Destructured to */}
           {({data, error, loading}) => {
             if (loading) return <p>Loading...</p>
             if (error) return <p>Error: {error.message}</p>
@@ -50,3 +50,4 @@ class items extends Component {
 }
 
 export default items;
+export { ALL_ITEMS_QUERY };
