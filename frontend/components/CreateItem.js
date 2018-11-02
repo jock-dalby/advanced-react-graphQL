@@ -10,7 +10,7 @@ class CreateItem extends Component {
     description: '',
     image: '',
     largeImage: '',
-    price: '',
+    price: 0,
   }
 
   handleChange = e => {
@@ -21,7 +21,10 @@ class CreateItem extends Component {
 
   render() {
     return (
-      <Form>
+      <Form onSubmit={(e) => {
+        e.preventDefault();
+        console.log(this.state)
+      }}>
         <fieldset>
           <label htmlFor="title">
             Title
@@ -33,6 +36,29 @@ class CreateItem extends Component {
               onChange={this.handleChange}
               required />
           </label>
+
+          <label htmlFor="price">
+            Price
+            <input type="number"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={this.state.price}
+              onChange={this.handleChange}
+              required />
+          </label>
+
+          <label htmlFor="description">
+            Description
+            <textarea id="description"
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+              onChange={this.handleChange}
+              required />
+          </label>
+          
+          <button type="submit">Submit</button>
         </fieldset>
       </Form>
     );
