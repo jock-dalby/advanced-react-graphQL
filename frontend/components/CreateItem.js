@@ -77,6 +77,7 @@ class CreateItem extends Component {
         {/* called is boolean if has been called */}
         {(createItem, { loading, error, called, data}) => {
           return (
+          // TODO: Stop form from being submitted while image file is being uploaded to cloudinary
           <Form onSubmit={async e => {
               // stop form from submitting
               e.preventDefault();
@@ -99,6 +100,7 @@ class CreateItem extends Component {
                   // value={this.state.image}
                   onChange={this.uploadFile}
                   required />
+                  {this.state.image && <img src={this.state.image} width="200" alt="upload preview" />}
               </label>
 
               <label htmlFor="title">
