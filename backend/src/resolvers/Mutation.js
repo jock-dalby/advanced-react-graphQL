@@ -14,6 +14,25 @@ const Mutations = {
     return item;
     // If returning the Promise directly no need to use 'await' keyword. e.g. return context.db.....
     // Good to save off to a variable though so if debugging at a later stage it is easy to log out the item.
+  },
+
+  updateItem(parent, args, ctx, info) {
+    const updates = { ...args };
+    // remove the ID from updates because is not something that can be updated
+    delete updates.id
+    // run the update method
+    // ctx is the context in the request
+    // db is how we expose the prisma db within the context
+    // access queries or mutations that are generated and available within prisma.graphql i.e. updateItem
+    return ctx.db.mutation.updateItem({
+      data: updates,
+      where: {
+        id: args.id
+      },
+      // pass in info as second arg so updateItem knows what to return
+      // as this will include the query which is sent from clientside
+      info
+    })
   }
 };
 
