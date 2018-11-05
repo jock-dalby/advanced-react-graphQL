@@ -21,6 +21,14 @@ query {
   }
 }
 
+query SINGLE_ITEM_QUERY {
+  item (where: { id: "cjnrt0x1m8qvm0a54kjsbqvly"} ) {
+    description
+    id
+    title
+  }
+}
+
 Above graphQl query will fetch all users where name contains 'Steve' and will return their name and id.
 
 ----------------------

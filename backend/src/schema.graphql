@@ -12,8 +12,20 @@ type Mutation {
     image: String,
     largeImage: String
     ): Item!
+
+  updateItem(
+    id: ID!
+    title: String,
+    description: String,
+    price: Int
+    # TODO: Add image and largeImage to updateItem mutation and UI edit screen
+  ): Item!
 }
 
 type Query {
   items: [Item]!
+  # ItemWhereUniqueInput is generated in the prisma.graphql file
+  # Do not make return Item as required because if in a scenario we pass an item that does not
+  # exist, we do not want it to error
+  item(where: ItemWhereUniqueInput!): Item
 }

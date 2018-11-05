@@ -11,11 +11,12 @@ const Query = {
     // Getting items method from prisma.graphql generated schema
     const items = await context.db.query.items();
     return items
-  }
+  },
 
   // Note if query is exactly the same in prisma.graphql as required in Query,
   // you can just forward to request on to prisma, as below.
   // items: forwardTo('db')
+  item: forwardTo('db'),
 };
 
 module.exports = Query;
