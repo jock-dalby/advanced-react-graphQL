@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Title from './styles/Title';
 import ItemStyles from './styles/ItemStyles';
 import PriceTag from './styles/PriceTag';
-import Item from './styles/ItemStyles';
 import formatMoney from '../lib/formatMoney';
+import DeleteItem from './DeleteItem';
 
 class item extends Component {
 
@@ -40,7 +40,7 @@ class item extends Component {
               query: { id: item.id }
             }}><a>Edit</a></Link>
             <button>Add to cart</button>
-            <button>Delete</button>
+            <DeleteItem>Delete item</DeleteItem>
           </div>
         </ItemStyles>
       </div>
