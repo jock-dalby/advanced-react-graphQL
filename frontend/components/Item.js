@@ -40,7 +40,8 @@ class item extends Component {
               query: { id: item.id }
             }}><a>Edit</a></Link>
             <button>Add to cart</button>
-            <DeleteItem>Delete item</DeleteItem>
+            {/* TODO: Only show 'Delete item' button for items the user owns or has permissions for */}
+            <DeleteItem id={item.id}>Delete item</DeleteItem>
           </div>
         </ItemStyles>
       </div>

@@ -20,6 +20,8 @@ type Mutation {
     price: Int
     # TODO: Add image and largeImage to updateItem mutation and UI edit screen
   ): Item!
+
+  deleteItem(id: ID!): Item!
 }
 
 type Query {

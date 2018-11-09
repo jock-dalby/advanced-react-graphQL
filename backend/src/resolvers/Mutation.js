@@ -33,6 +33,18 @@ const Mutations = {
       // as this will include the query which is sent from clientside
       info
     })
+  },
+
+  async deleteItem(parent, args, ctx, info) {
+    const where = { id: args.id};
+    // find the item. Write raw graphQl for what we want intermediary query to return for our server side checks
+    const item = await ctx.db.query.item({ where }, `{ id, title }`)
+
+    // TODO check if user is owner of item, or have permissions
+
+    // delete item
+    // pass in client side graphQl for what we want final query to return to client
+    return ctx.db.mutation.deleteItem({ where }, info)
   }
 };
 
