@@ -30,4 +30,5 @@ type Query {
   # Do not make return Item as required because if in a scenario we pass an item that does not
   # exist, we do not want it to error
   item(where: ItemWhereUniqueInput!): Item
+  itemsConnection(where: ItemWhereInput): ItemConnection!
 }

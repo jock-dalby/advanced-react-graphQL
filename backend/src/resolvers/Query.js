@@ -17,6 +17,32 @@ const Query = {
   // you can just forward to request on to prisma, as below.
   // items: forwardTo('db')
   item: forwardTo('db'),
+  itemsConnection: forwardTo('db'),
 };
 
 module.exports = Query;
+
+/**
+
+Example query for getting number of items
+
+query dataAboutItems {
+  itemsConnection {
+    aggregate {
+      count
+    }
+  }
+}
+
+Example query for getting number of items with jacket in title
+
+query dataAboutItems {
+  itemsConnection(where: {
+    title_contains: "jacket"
+  }) {
+    aggregate {
+      count
+    }
+  }
+}
+ */
