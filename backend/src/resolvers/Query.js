@@ -7,15 +7,15 @@ const Query = {
   *  - info: info around GraphQL query coming in
   */
 
-  async items(parent, args, context, info) {
-    // Getting items method from prisma.graphql generated schema
-    const items = await context.db.query.items();
-    return items
-  },
+  // async items(parent, args, context, info) {
+  //   // Getting items method from prisma.graphql generated schema
+  //   const items = await context.db.query.items();
+  //   return items
+  // },
 
   // Note if query is exactly the same in prisma.graphql as required in Query,
   // you can just forward to request on to prisma, as below.
-  // items: forwardTo('db')
+  items: forwardTo('db'),
   item: forwardTo('db'),
   itemsConnection: forwardTo('db'),
 };
