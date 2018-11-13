@@ -42,6 +42,7 @@ class CreateItem extends Component {
 
   handleChange = e => {
     const { name, type, value } = e.target;
+    // TODO: fix bug with price input, where remove the 0 and throws an error in console
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({ [name]: val })
   }

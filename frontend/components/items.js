@@ -37,8 +37,15 @@ class items extends Component {
       <Center>
         <Pagination page={this.props.page}></Pagination>
         <Query query={ALL_ITEMS_QUERY} variables={{
-          skip: this.props.page * perPage - perPage
-        }}>
+            skip: this.props.page * perPage - perPage
+          }}
+          // network-only disables the cache and fetches from db every time.
+          // Only to be used in rare cases as will lose performance benefits.
+          // Currently no good way to solve the scenario where a new item is
+          // added and the pagination needs updating. Should be added to course
+          // soon when apollo introduce a fix. But for now this will work.
+          // fetchPolicy="network-only"
+        >
           {/* { payload => { */}
           {/* Destructured to */}
           {({data, error, loading}) => {
