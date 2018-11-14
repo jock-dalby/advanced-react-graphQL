@@ -71,19 +71,46 @@ const Mutations = {
     // info as second argument so knows what data to return to the client
     }, info);
     // log in user and create JWT
-    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    const token = generateJwtToken();
     // set JWT as cookie on the response
     ctx.response.cookie('token', token, {
       // httpOnly means cookie cannot be accessed via javascript
       // to stop 3rd-part js or rogue chrome extension from scraping
-      // adn getting hold of cookie data
+      // and getting hold of cookie data
       httpOnly: true,
       // how long we want cookie to last
       maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
     });
     // return the user to the browser
     return user;
+  },
+  // destructure args to pull out the email and password props
+  async signin(parent, { email, password }, ctx, info) {
+    // check if user exists in db
+    const user = await ctx.db.query.user({ where: { email }});
+    if (!user) {
+      // error will be caught in mutation on frontend and we can display this error message to user
+      throw new Error(`No such user found for email ${email}`)
+    }
+    // check if password is correct
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      throw new Error('Invalid password!')
+    }
+    // generate jwt
+    const token = generateJwtToken();
+    // set cookie with token
+    ctx.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+    });
+    // return user
+    return user;
   }
 };
+
+const generateJwtToken = () => {
+  return jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+}
 
 module.exports = Mutations;
