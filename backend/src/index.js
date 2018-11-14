@@ -24,7 +24,7 @@ server.express.use((request, response, next) => {
     // to say are admin etc.
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
     // Put user id onto the request for future requests to access
-    req.userId = userId;
+    request.userId = userId;
   }
   // next allows the request to continue after we have finished with this piece fo middleware
   next();
