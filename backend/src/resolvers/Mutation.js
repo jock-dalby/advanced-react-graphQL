@@ -71,7 +71,7 @@ const Mutations = {
     // info as second argument so knows what data to return to the client
     }, info);
     // log in user and create JWT
-    const token = generateJwtToken();
+    const token = generateJwtToken(user.id);
     // set JWT as cookie on the response
     ctx.response.cookie('token', token, {
       // httpOnly means cookie cannot be accessed via javascript
@@ -98,7 +98,7 @@ const Mutations = {
       throw new Error('Invalid password!')
     }
     // generate jwt
-    const token = generateJwtToken();
+    const token = generateJwtToken(user.id);
     // set cookie with token
     ctx.response.cookie('token', token, {
       httpOnly: true,
@@ -109,8 +109,8 @@ const Mutations = {
   }
 };
 
-const generateJwtToken = () => {
-  return jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+const generateJwtToken = (userId) => {
+  return jwt.sign({ userId }, process.env.APP_SECRET);
 }
 
 module.exports = Mutations;
