@@ -52,7 +52,7 @@ const Mutations = {
 
   async signup(parent, args, ctx, info) {
     // lowercase the email
-    args.email = args.email.toLowercase();
+    args.email = args.email.toLowerCase();
     // hash the password
     // can either pass 'SALT' or salt length as second argument
     // the salt helps to make the password unique. Research 'Salt (cryptography)'
@@ -71,7 +71,7 @@ const Mutations = {
     // info as second argument so knows what data to return to the client
     }, info);
     // log in user and create JWT
-    const token = jwt.sign({ userId: user.id }, process.end.APP_SECRET);
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     // set JWT as cookie on the response
     ctx.response.cookie('token', token, {
       // httpOnly means cookie cannot be accessed via javascript
