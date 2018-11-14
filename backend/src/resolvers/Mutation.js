@@ -1,3 +1,6 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const Mutations = {
   async createItem(parent, args, context, info) {
     // TODO: Check if they are logged in
@@ -45,6 +48,41 @@ const Mutations = {
     // delete item
     // pass in client side graphQl for what we want final query to return to client
     return ctx.db.mutation.deleteItem({ where }, info)
+  },
+
+  async signup(parent, args, ctx, info) {
+    // lowercase the email
+    args.email = args.email.toLowercase();
+    // hash the password
+    // can either pass 'SALT' or salt length as second argument
+    // the salt helps to make the password unique. Research 'Salt (cryptography)'
+    const password = await bcrypt.hash(args.password, 10);
+    // create the user in the db
+    const user = await ctx.db.mutation.createUser({
+      data: {
+        // spread the args
+        ...args,
+        // overwrite the password
+        password,
+        // set the permissions. Everyone who signs up will be a USER to begin with
+        // but can update at later time.
+        permissions: { set: ['USER'] }
+      }
+    // info as second argument so knows what data to return to the client
+    }, info);
+    // log in user and create JWT
+    const token = jwt.sign({ userId: user.id }, process.end.APP_SECRET);
+    // set JWT as cookie on the response
+    ctx.response.cookie('token', token, {
+      // httpOnly means cookie cannot be accessed via javascript
+      // to stop 3rd-part js or rogue chrome extension from scraping
+      // adn getting hold of cookie data
+      httpOnly: true,
+      // how long we want cookie to last
+      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+    });
+    // return the user to the browser
+    return user;
   }
 };
 
