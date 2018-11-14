@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
+import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -31,7 +32,15 @@ class Signup extends Component {
 
   render() {
     return (
-      <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={SIGNUP_MUTATION}
+        variables={this.state}
+        // when this mutation has finished, this will go into the apollo store and refetch the current user,
+        // which will update the UI with the current users details without the need to refresh
+        refetchQueries = {[
+          { query: CURRENT_USER_QUERY }
+        ]}
+        >
         {(signup, { error, loading }) => {
           return (
             // If do not add method="post" then default is a "get" and js will add to url as query param
