@@ -18,6 +18,17 @@ const Query = {
   items: forwardTo('db'),
   item: forwardTo('db'),
   itemsConnection: forwardTo('db'),
+
+  me(parent, args, ctx, info) {
+    // check if current user id exists
+    if(!ctx.request.userId) {
+      return null;
+    }
+    return ctx.db.query.user({
+      where: { id: ctx.request.userId }
+    // info is query coming from the client side
+    }, info);
+  }
 };
 
 module.exports = Query;
