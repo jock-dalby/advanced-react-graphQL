@@ -4,6 +4,10 @@
 # This will import all of the types and inputs from the designated file i.e. Item
 # import * from './generated/prisma.graphql'
 
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
   createItem(
     title: String,
@@ -24,6 +28,7 @@ type Mutation {
   deleteItem(id: ID!): Item!
   signup(email: String!, password: String!, name: String!): User!
   signin(email: String!, password: String!): User!
+  signout: SuccessMessage
 }
 
 type Query {
