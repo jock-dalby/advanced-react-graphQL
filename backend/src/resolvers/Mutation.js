@@ -130,7 +130,6 @@ const Mutations = {
       where: { email },
       data: { resetToken, resetTokenExpiry }
     })
-    console.log(response)
     // 3. Email the reset token
     return { message: "thanks"}
   },
