@@ -1,12 +1,10 @@
 import CreateItem from '../components/CreateItem';
 
-const Sell = props => {
-  return (
-    <div>
-      <CreateItem />
-    </div>
-  )
-};
+const Sell = () => (
+  <div>
+    <CreateItem />
+  </div>
+);
 
 
 export default Sell;
