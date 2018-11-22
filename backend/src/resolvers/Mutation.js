@@ -7,13 +7,29 @@ const { transport, makeANiceEmail } = require('../mail');
 const Mutations = {
   async createItem(parent, args, context, info) {
     // TODO: Check if they are logged in
+    if(!context.request.userId) {
+      throw new Error('You need to be logged in');
+    }
 
     // 1. context.db is how to access the prisma DB from withing GraphQL layer.
     // 2. The info arg contains the original query which is passed to the DB
     // to specify which data is returned from the DB when new item is created.
     // 3. The DB will return a Promise so need to make createItem and 'async' method and specify the 'await' keyword
     const item = await context.db.mutation.createItem(
-      { data:{ ...args } },
+      { 
+        data:{
+          ...args,
+          // This is how to create relationships between the item and the user.
+          // Give the item a user property, and then on the connect prop, give another obj
+          // where we assign the information we want for that user (in this case id).
+          // Now the item will have prop value of user: userId along with other info
+          user: {
+            connect: {
+              id: context.request.userId
+            }
+          }
+        }
+      },
       info
     );
 

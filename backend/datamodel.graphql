@@ -29,5 +29,5 @@ type Item {
   # DateTime is a type exposed by Prisma and not a standard type in GraphQL
   # createAt: DateTime!
   # updatedAt: DateTime!
-  # user: User!
+  user: User!
 }
