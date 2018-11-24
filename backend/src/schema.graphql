@@ -41,6 +41,8 @@ type Query {
   item(where: ItemWhereUniqueInput!): Item
   itemsConnection(where: ItemWhereInput): ItemConnection!
   me: User
+  # array is required to be returned but may be empty and so user is not required e.g. [User!]!
+  users: [User]!
 }
 
 type User {
