@@ -30,6 +30,18 @@ server.express.use((request, response, next) => {
   next();
 })
 
+// Add middleware to populate user on each request
+server.express.use(async (req, res, next) => {
+  // if they aren't logged in, skip this
+  if (!req.userId) return next();
+  const user = await db.query.user(
+    { where: { id: req.userId } },
+    '{ id, permissions, email, name }'
+  );
+  req.user = user;
+  next();
+});
+
 server.start(
   {
   // Only want this endpoint to be visited by approved urls

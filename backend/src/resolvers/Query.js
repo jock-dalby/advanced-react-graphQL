@@ -32,18 +32,18 @@ const Query = {
   },
 
   async users(parent, args, ctx, info) {
-    // 1. check if logged in
-    if(!ctx.request.userId) {
-      throw new Error('You must be logged in');
+    // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
     }
-
-    // 2. check if have permission to query all users
-    //  - if has permission will continue to run code, if not will throw an error
+    console.log(ctx.request.userId);
+    // 2. Check if the user has the permissions to query all the users
+    // TODO: When user does not have permission, seems to be throwing the error on backend but not returning error to the client.
     hasPermission(ctx.request.user, ['ADMIN', 'PERMISSIONUPDATE']);
 
-    // 3. if do, query all users
-    return ctx.db.users({}, info); 
-  }
+    // 2. if they do, query all the users!
+    return ctx.db.query.users({}, info);
+  },
 };
 
 module.exports = Query;
