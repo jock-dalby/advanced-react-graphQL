@@ -16,6 +16,7 @@ import ApolloClient from 'apollo-boost';
   server-side rendering to work we have to use next-with-apollo and do a little extra work.
 */
 import withApollo from 'next-with-apollo';
+import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION }  from '../components/Cart';
 
 import { endpoint } from '../config';
 
@@ -33,6 +34,32 @@ function createClient({ headers }) {
         headers,
       });
     },
+    // local data
+    clientState: {
+      resolvers: {
+        Mutation: {
+          // Wes ain't sure what first arg is but we don't need it
+          toggleCart(_, variables, client) {
+            // read the cartOpen value from cache
+            const { cartOpen } = client.cache.readQuery({
+              query: LOCAL_STATE_QUERY
+            });
+            // write the cart state to the opposite
+            const data = {
+              data: {
+                cartOpen: !cartOpen
+              }
+            }
+            client.cache.writeData(data);
+            // TODO In tutorial, we are returning data but don't know why, check if need and remove if not
+            // return data;
+          }
+        }
+      },
+      defaults: {
+        cartOpen: true
+      }
+    }
   });
 }
 
