@@ -61,9 +61,18 @@ const Mutations = {
   async deleteItem(parent, args, ctx, info) {
     const where = { id: args.id};
     // find the item. Write raw graphQl for what we want intermediary query to return for our server side checks
-    const item = await ctx.db.query.item({ where }, `{ id, title }`)
+    const item = await ctx.db.query.item({ where }, `{ id title user { id } }`)
 
-    // TODO check if user is owner of item, or have permissions
+    // check if user is owner of item, or have permissions
+    const ownsItem = item.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(
+      permission => ['ADMIN', 'ITEMDELETE'].includes(permission)
+    )
+
+    // if does not have permission, throw error
+    if (!ownsItem && !hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
 
     // delete item
     // pass in client side graphQl for what we want final query to return to client
