@@ -7,6 +7,7 @@ import ItemStyles from './styles/ItemStyles';
 import PriceTag from './styles/PriceTag';
 import formatMoney from '../lib/formatMoney';
 import DeleteItem from './DeleteItem';
+import AddToCart from './AddToCart';
 
 class item extends Component {
 
@@ -38,8 +39,8 @@ class item extends Component {
             <Link href={{
               pathname: 'update',
               query: { id: item.id }
-            }}><a>Edit</a></Link>
-            <button>Add to cart</button>
+            }}><a>Edit ✏️</a></Link>
+            <AddToCart id={item.id}/>
             {/* TODO: Only show 'Delete item' button for items the user owns or has permissions for */}
             <DeleteItem id={item.id}>Delete item</DeleteItem>
           </div>
