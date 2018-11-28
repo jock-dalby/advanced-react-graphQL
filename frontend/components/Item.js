@@ -41,6 +41,7 @@ class item extends Component {
               pathname: 'update',
               query: { id: item.id }
             }}><a>Edit ✏️</a></Link>
+            {/* TODO: Pass in more info and do a manual update to cart using optimistic response to immediately update the cart. See RemoveFromCart */}
             <AddToCart id={item.id}/>
             {/* TODO: Only show 'Delete item' button for items the user owns or has permissions for */}
             <DeleteItem id={item.id}>Delete item</DeleteItem>
