@@ -288,6 +288,34 @@ const Mutations = {
       info
     );
 
+  },
+
+  async removeFromCart(parent, args, ctv, info) {
+    // 1. Find cart item
+    const cartItem = await ctx.db.query.cartItem({
+      where: {
+        id: args.id
+      }
+    // The client side only needs the item back but we need
+    // to know who owns it and so pass in a manual query in
+    // for the id of cartItem and the user id of who owns it
+    }, `{ id, user { id }}`)
+    // 2. make sure we found an item
+    if(!cartItem) {
+      throw new Error('No cartItem found!');
+    }
+    // 3. make sure they own that cart item
+    if(cartItem.user.id !== ctx.request.userId) {
+      throw new Error('Cheating huuuh?? This item does not belong to your cart!')
+    }
+
+    // 4. Delete that cart item
+    return ctx.db.mutation.deleteCartItem({
+      where: {
+        id: args.id
+      },
+      info
+    })
   }
 };
 
