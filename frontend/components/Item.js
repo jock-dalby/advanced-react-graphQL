@@ -36,6 +36,7 @@ class item extends Component {
           <p>{item.description}</p>
 
           <div className="buttonList">
+          {/* TODO: disable button while routing */}
             <Link href={{
               pathname: 'update',
               query: { id: item.id }
